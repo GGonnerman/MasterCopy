@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Mr. Groth's Website</title>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<ul style="color:white" >
+<li>Open <a target="_blank" style="color:#8080ff" href="https://drive.google.com/drive/my-drive"><b>google drive</b></a><b> website</b></li>
+<li>Put images needed in folder that <b>anyone can view through link</b></li>
+<li>Click on image and in top right click the three dots, <b>open in new tab</b></li>
+<li>Copy link and put in <b>new input box</b></li>
+<li>Select either chance or community chest at bottom, <b>click activate</b> (this will copy the code to the clipboard)</li>
+<li>Go to google sites, <b>select embeded and paste the code</b> which is copied to clipboard</li>
+</ul>
+    <div id="elementHolder">
+        <img id="img1" src="https://goo.gl/EZ7bPY">
+        <img id="img2" src="https://goo.gl/EZ7bPY">
+        <img id="img3" src="https://goo.gl/EZ7bPY">
+        <br>
+        <input onchange="changeImageToLink(1)" id="1" type="text">
+        <input onchange="changeImageToLink(2)" id="2" type="text">
+        <input onchange="changeImageToLink(3)" id="3" type="text">
+        <p></p>
+    </div>
+    <button onclick="compileAllCode();copyToClipboard()">Activate</button>
+    <select id="chanceOrChest">
+      <option value="chance">Chance Cards</option>
+  <option value="chest">Community Chest Cards</option>
+    </select>
+    <p></p>
+    <textarea id="answer"></textarea>
+</body>
+
+</html>

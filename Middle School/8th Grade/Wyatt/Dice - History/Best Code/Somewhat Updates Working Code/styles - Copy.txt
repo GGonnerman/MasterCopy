@@ -1,0 +1,30 @@
+img {
+    width: 299px;
+    height: 172px;
+    padding: 0px;
+}
+
+button {
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+select {
+    background-color: rgba(0, 0, 0, .5);
+    color: white;
+}
+
+input {
+    width: 297px;
+    height: 18px;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+body {
+    background-image: url('http://www.artofadambetts.com/images/postgraphics/downloads/desktopbgs/conquertheuniverse-alt.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

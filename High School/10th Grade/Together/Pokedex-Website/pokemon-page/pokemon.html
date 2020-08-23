@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<script type="text/javascript" src="../pokedex.json"></script>
+	<script type="text/javascript" src="pokemon.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="entry.css">
+</head>
+
+<body>
+	<img id="animatedSprite">
+	<div id="buttonWrapper">
+		<button onclick="goHome()" id="home">Home</button>
+		<button onclick="randomPokemon()" id="random">Random</button>
+		<!-- <button onclick="randomEverything()" id="random">Complete Random</button> -->
+	</div>
+	<div id="wrapper">
+		<div id="basicInfoWrapper">
+			<span id="title"></span>
+			<p id="shorthand"></p>
+			<div id="descriptionDiv">
+				<p id="description"></p>
+			</div>
+		</div>
+		<div id="fullImageWrapper">
+			<img id="fullImage">
+		</div>
+		<div id="statsTableWrapper">
+			<table id="statsTable">
+				<tr>
+					<td>Type</td>
+					<td id="types"></td>
+				</tr>
+				<tr>
+					<td>Male Percent</td>
+					<td id="males"></td>
+				</tr>
+				<tr>
+					<td>Female Percent</td>
+					<td id="females"></td>
+				</tr>
+				<tr>
+					<td>Egg Groups</td>
+					<td id="eggGroups"></td>
+				</tr>
+				<tr>
+					<td>Height</td>
+					<td id="height"></td>
+				</tr>
+				<tr>
+					<td>Weight</td>
+					<td id="weight"></td>
+				</tr>
+			</table>
+		</div>
+		<div id="evolutionLineWrapper">
+			<table id="evolutionLine"></table>
+		</div>
+		<div id="canvasWrapper">
+			<canvas id="display"></canvas>
+		</div>
+	</div>
+</body>
+
+</html>

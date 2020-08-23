@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script>
+        function roll() {
+            if (waitTime === 0) {
+                var loops = 10;
+                var changeInTime = 150
+                setTimeout('coolDown()', loops * changeInTime);
+                var time = 0;
+                for (i = 0; i < 10; i++) {
+                    time += changeInTime;
+                    setTimeout('rollDice()', time);
+                    console.log("This is rolling number " + i);
+                    waitTime = 1;
+                }
+            } else {
+                console.log('Clicking too fast');
+            }
+        }
+
+        var waitTime = 0;
+
+        function coolDown() {
+            waitTime = 0;
+        }
+
+        function rollDice() {
+            let randomNumber = Math.floor(Math.random() * 6 + 1); //getting random numbers
+            let randomNumber2 = Math.floor(Math.random() * 6 + 1);
+            var image1;
+            if (randomNumber === 1) { //getting images ready based on number
+                image1 = "https://upload.wikimedia.org/wikipedia/commons/2/2c/Alea_1.png";
+            } else if (randomNumber === 2) {
+                image1 = "https://upload.wikimedia.org/wikipedia/commons/b/b8/Alea_2.png";
+            } else if (randomNumber === 3) {
+                image1 = "https://upload.wikimedia.org/wikipedia/commons/2/2f/Alea_3.png";
+            } else if (randomNumber === 4) {
+                image1 = "https://upload.wikimedia.org/wikipedia/commons/8/8d/Alea_4.png";
+            } else if (randomNumber === 5) {
+                image1 = "https://upload.wikimedia.org/wikipedia/commons/5/55/Alea_5.png";
+            } else {
+                image1 = "https://upload.wikimedia.org/wikipedia/commons/f/f4/Alea_6.png";
+            }
+            document.getElementById('diceOne').src = image1; //setting dice one as link
+            var image2;
+            if (randomNumber2 === 1) { //finding 2nd image based on number
+                image2 = "https://upload.wikimedia.org/wikipedia/commons/2/2c/Alea_1.png";
+            } else if (randomNumber2 === 2) {
+                image2 = "https://upload.wikimedia.org/wikipedia/commons/b/b8/Alea_2.png";
+            } else if (randomNumber2 === 3) {
+                image2 = "https://upload.wikimedia.org/wikipedia/commons/2/2f/Alea_3.png";
+            } else if (randomNumber2 === 4) {
+                image2 = "https://upload.wikimedia.org/wikipedia/commons/8/8d/Alea_4.png";
+            } else if (randomNumber2 === 5) {
+                image2 = "https://upload.wikimedia.org/wikipedia/commons/5/55/Alea_5.png";
+            } else {
+                image2 = "https://upload.wikimedia.org/wikipedia/commons/f/f4/Alea_6.png";
+            }
+            document.getElementById('diceTwo').src = image2; //setting dice two as 2nd image
+
+        }
+    </script>
+    <!---Setting button and img to be symetrical--->
+    <style>
+        button {
+            width: 224px;
+            height: 28px;
+        }
+
+        img {
+            width: 112px;
+            height: 112px;
+        }
+    </style>
+</head>
+<!---setting opening die--->
+
+<body>
+    <img id='diceOne' onclick="rollDice()" src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Alea_1.png">
+    <img id='diceTwo' onclick="rollDice()" src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Alea_1.png">
+    <br><button onclick="roll()">Roll Dice</button>
+    <!---What happens when button click--->
+</body>
+
+</html>

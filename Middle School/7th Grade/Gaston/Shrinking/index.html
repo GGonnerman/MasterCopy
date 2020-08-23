@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <canvas id="c" width="2000" height="2000"></canvas>
+    <script>
+        const c = document.querySelector("#c");
+        const ctx = c.getContext("2d");
+        window.onload = function() {
+            setup();
+            setTimeout(work, 500);
+        }
+        var numberOne = 0;
+        var finalNumber = 1;
+        var numberTwo = 0;
+        var boxed = [];
+
+        function setup() {
+            for (var i = 0; i < 16; i++) {
+                numberTwo = numberOne + finalNumber;
+                numberOne = finalNumber;
+                finalNumber = numberTwo;
+                console.log(finalNumber);
+                boxed[i] = finalNumber;
+                if (i % 2 === 0) {
+                    ctx.strokeRect(finalNumber, finalNumber, finalNumber, finalNumber);
+                } else {
+                    ctx.fillRect(finalNumber, finalNumber, finalNumber, finalNumber);
+                }
+            }
+        }
+
+        function work(times) {
+
+            for (i = 0; i < finalNumber; i++) {
+                console.log(i * 1000);
+                setTimeout(drawStuff, i * 100);
+            }
+
+            function drawStuff() {
+                ctx.clearRect(0, 0, c.width, c.height);
+                console.log("drawing");
+                for (i = 0; i < 16; i++) {
+                    var temp = boxed[i] - 1;
+                    if (i % 2 === 0 && temp > 0) {
+                        ctx.strokeRect(temp, temp, temp, temp);
+                    } else if (temp > 0) {
+                        ctx.fillRect(temp, temp, temp, temp);
+                    }
+                    var t = i - 1;
+                    if (t >= 1) {
+                        boxed[i] -= 1;
+                        console.log(boxed[t]);
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

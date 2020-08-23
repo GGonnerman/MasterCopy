@@ -1,0 +1,21 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#colorName {
+	font-family: 'Courgette', cursive;
+	text-align: center;
+	font-size: 128px
+}
+
+#hexes {
+	height: 0px;
+	width: 0px;
+	resize: none;
+	padding: 0px;
+	margin: 0px;
+	border-color: Transparent;
+}

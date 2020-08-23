@@ -1,0 +1,163 @@
+#!/bin/bash
+
+pushd() {
+    command pushd "$@" > /dev/null
+}
+
+popd() {
+    command popd "$@" > /dev/null
+}
+
+print_usage() {
+    echo "Youtube-sync - A playlist syncing controller"
+    echo " "
+    echo "youtube-sync [options] directory"
+    echo " "
+    echo "options:"
+    echo "-h, --help                Show help message"
+    echo "-p, --playlist            Specify a playlist to install"
+    echo "-i, --install             Choose to install a new playlist"
+    echo "-fr, --force-reload       Delete everything in each folder and reinstall"
+    echo "-nc, --no-confirm         Don't confirm the deletion of everything in each folder"
+    echo "-ur, --update-recursively Choose to update directory with all subdirectories"
+}
+
+update_youtube_sync() {
+    pushd "$@"
+    PLAYLIST=$(grep -Pio "(?<=playlist: ).*" .youtube-sync)
+    TYPE=$(grep -Pio "(?<=type: ).*" .youtube-sync)
+    [ "$PLAYLIST" = "" ] && echo "Playlist missing from .youtube-sync in \"$PWD\"" && popd && return
+    [ "$TYPE" = "" ] && echo "Type missing from .youtube-sync in \"$PWD\"" && popd && return
+    [ "$TYPE" != "mp3" ] && [ "$TYPE" != "mp4" ] && echo "Type is corrupted in \"$PWD\"" && popd && return
+
+    if [ $force_reload ]; then
+	if [ ! $no_confirm ]; then
+	    echo "Do you want to remove and reinstall everything in $PWD?"
+	    select yn in "Yes" "No"; do
+		case $yn in
+		    Yes) break;;
+		    No) popd; return;;
+		esac
+	    done
+	fi
+	[ $force_reload ] && rm .archive && touch .archive && rm *
+    fi
+
+    echo "$(cat .archive | sed 's/youtube //')" > .old-archive
+    echo "$(youtube-dl -i --no-warnings --get-id "$PLAYLIST" )" > .new-archive 
+    diff .old-archive .new-archive > .temp-archive
+#    echo $( youtube-dl -i --get-id "$PLAYLIST" | sed 's/^/youtube /' ) > .barchive
+#    diff <( cat .archive | sed 's/youtube //' ) <(echo "$(youtube-dl -i --get-id "$PLAYLIST" | sed 's/^/youtube /')") > .temp-archive
+#    diff .archive <(echo "$(youtube-dl -i --get-id "$PLAYLIST" 2>/dev/null | sed 's/^/youtube /')") > .temp-archive
+    ADDS=$(grep -Pio "(?<=> ).*" .temp-archive)
+    DELS=$(grep -Pio "(?<=< ).*" .temp-archive)
+
+    for i in $DELS
+    do
+	echo "Deleted $(find -maxdepth 1 -name *$i* | sed 's~./~~')"
+	rm *$i*
+	sed -i "/.*$i/d" .archive
+    done
+
+    for i in $ADDS
+    do
+	[ "$TYPE" = "mp3" ] && youtube-dl -f bestaudio --audio-quality 0 --audio-format mp3 -i -x "$i" >/dev/null && echo "youtube $i" >> .archive
+	[ "$TYPE" = "mp4" ] && youtube-dl -f bestvideo[ext!=webm]+bestaudio[ext!=webm]/best[ext!=webm] -i "$i" >/dev/null && echo "youtube $i" >> .archive
+	echo "Added $(find -maxdepth 1 -regex ".*$i.*" | sed 's~./~~')"
+    done
+    popd
+}
+
+while test $# -gt 0; do
+    case "$1" in
+	-h|--help)
+	    print_usage
+	    exit 0
+	    ;;
+	-i|--install)
+	    shift
+	    install=true
+	    ;;
+	-ur|--update-recursively)
+	    shift
+	    update_recursively=true
+	    ;;
+	-fr|--force-reload)
+	    shift
+	    force_reload=true
+	    ;;
+	-nc|--no-confirm)
+	    shift
+	    no_confirm=true
+	    ;;
+	-t|--type)
+	    shift
+	    if test $# -gt 0; then
+		type=$1
+	    else
+		echo "No type specified"
+		exit 1
+	    fi
+	    shift
+	    ;;
+	-p|--playlist)
+	    shift
+	    if test $# -gt 0; then
+		playlist=$1
+	    else
+		echo "No playlist specified"
+		exit 1
+	    fi
+	    shift
+	    ;;
+	*)
+	    dir=$1
+	    break
+	    ;;
+    esac
+done
+
+ping -c1 unix.com &>/dev/null || ( echo "No internet connection detected, exitting" && exit 1 )
+
+if [ $install ]; then
+
+    [ "$dir" == "" ] && echo "Please specify a directory with the --directory flag" && exit 1
+    [ "$playlist" == "" ] && echo "Please specify a playlist with the --playlist flag" && exit 1
+    [ -d "$dir" ] && [ ! -z "$(ls -A $dir)" ] && echo "Please specifiy an empty or non-existant directory" && exit 1
+    [ "$type" == "" ] && echo "Please specify a type with the --type flag" && exit 1
+    [ "$type" != "mp3" ] && [ "$type" != "mp4" ] && echo "Type should be equal to 'mp3' or 'mp4'" && exit 1
+
+    # Create the directory to hold the playlist
+    [ ! -d "$dir" ] && mkdir "$dir"
+
+    # Move into folder
+    pushd "$dir"
+
+    # Add playlist and type to hidden file used for syncing
+    echo -e "playlist: $playlist\ntype: $type" >> ".youtube-sync"
+
+    # Download playlist and create initial archive
+    [ "$type" = "mp3" ] && youtube-dl -f bestaudio --audio-quality 0 --audio-format mp3 -i -x --download-archive .archive "$playlist"
+    [ "$type" = "mp4" ] && youtube-dl -f bestvideo[ext!=webm]+bestaudio[ext!=webm]/best[ext!=webm] -i --download-archive .archive "$playlist"
+
+    # Leave folder
+    popd
+
+else
+
+    [ "$dir" == "" ] && dir="$PWD" && echo "No directory specified, running on current directory"
+    [ ! -d "$dir" ] && echo "Please specify a directory that exists" && exit 1
+    [ -z "$(ls -A $dir)" ] && echo "Please specifiy a non-empty directory" && exit 1
+
+    if [ $update_recursively ]; then
+	pushd "$dir"
+	for dir in $( find . -type d -printf '%f\n' )
+	do
+	    [ -f "$dir/.youtube-sync" ] && echo "$dir is a youtube-sync" && update_youtube_sync "$dir" || echo "$dir is not a youtube-sync"
+	done
+	popd
+    else
+	[ -f "$dir/.youtube-sync" ] && update_youtube_sync "$dir" || echo "$dir is not a youtube-sync"
+    fi
+
+fi

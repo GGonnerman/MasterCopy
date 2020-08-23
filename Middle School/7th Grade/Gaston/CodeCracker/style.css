@@ -1,0 +1,17 @@
+body {
+   background-image: url("http://data.freehdw.com/hacker-computer-sadic-dark-anarchy-background-images.jpg");
+}
+
+button { 
+    margin: 0 auto;
+    display: inline-block;
+    width: 15%;
+    border-radius: 12px;
+    border: none;
+    padding: 5px 10px;
+    color: black; 
+    background-color: #20C20E;
+    font-size: 24px;
+    font-weight: bold;
+    transition-property: none;
+}

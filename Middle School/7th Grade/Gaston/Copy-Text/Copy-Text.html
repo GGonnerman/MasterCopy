@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by 21943second (http://jsbin.com/modutik/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title> 
+<style id="jsbin-css">
+* {
+  text-align: center;
+}
+
+#b1 {
+  font-weight: bold;
+  border-width: 0.15EM;
+  border-style: solid;
+  border-color: #333;
+  background: -webkit-linear-gradient(top left, rgba(255, 0, 0, 0.3), rgba(255, 128, 0, 0.3), rgba(255, 255, 0, 0.3), rgba(0, 255, 0, 0.3), rgba(0, 0, 255, 0.3), rgba(204, 0, 204, 0.3));
+}
+
+textarea {
+  height: 15px;
+  overflow: hidden;
+  background: -webkit-linear-gradient(bottom left, rgba(35,45,205,1), rgba(35, 45, 205, 0), rgba(35,45,205,1));
+  
+  border-width: 2.25px;
+  border-style: solid;
+  border-radius: 8px;
+  border-color: rgb(35, 45, 205);
+}
+</style>
+</head>
+<body>
+<p>
+  <textarea id="wors" class="js-copytextarea1">Text to copy</textarea>
+  <br/>
+  <button id="b1" onclick="word('1')" class="js-textareacopybtn1">Copy Text Area</button>
+</p>
+  <p>
+    <button id="c" onclick="eraseText('wors')">Clear</button>
+  <script id="jsbin-javascript">
+word = function(tex) {
+  var copyTextareaBtn = document.querySelector('.js-textareacopybtn' + tex);
+
+copyTextareaBtn.addEventListener('click', function(event) {
+  var copyTextarea = document.querySelector('.js-copytextarea' + tex);
+  copyTextarea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+});
+}
+
+function eraseText(i) {
+    document.getElementById(i).value = "";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+package encyption;
+import java.util.*;
+public class gastons {
+    
+    public static void main(String[] args) {
+    	gastons encrypt = new gastons();
+        String key = "howdy";
+        String encryptedKey = encrypt.encrypt(key, true);
+        
+        System.out.println("Key: " + key);
+        System.out.println("Encrypted Key: " + encryptedKey);
+    }
+    
+    public String encrypt(String key, boolean False) {
+        ArrayList<Integer> test = new ArrayList<>();ob oB = new ob();String[] charList = key.split("");
+        for(int i = 0; i < charList.length; i++) {
+       String j = String.valueOf(charList[i].hashCode() << 1);
+                while(j.length()<Integer.MAX_VALUE&&j.length()<3||j=="180618") {
+    j=ob.j.replaceAll("([^ ])", "").replaceAll(" ", "0")+""+j;}
+            oB.remove(j);oB.test();
+        }oB.claim();
+    return oB.ct();
+    }
+}
+class ob {
+    private String call(String a, String string, String i) {
+        switch(string) {case "_":
+                return i;default:return a;}}
+public void test() {Bo.add(this.call("B", "_", c));}
+     public String c = Integer.toHexString(3);
+           public String ct() {return c;}
+  long s=420L;Random r=new Random(s);
+    ArrayList<String> Bo = new ArrayList<>();
+public void claim() {c="";for(int i = 0; i < Bo.size(); i +=1){c+=Bo.get(i)+(Boolean.toString(r.nextBoolean()) + String.valueOf(r.nextInt(8) + 1) + Integer.toString(r.nextInt(8) + 1));}}
+  public static String j = "Hello, World!";
+            public static void main(String[] args) {
+        
+    }
+    public String remove(String a) {return (c=this.call(a, String.valueOf(Math.random()), "C"));}
+}
+//132true22210true22206false57064false21154false46202false21218false86202false18230true67

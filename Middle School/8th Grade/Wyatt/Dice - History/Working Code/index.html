@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Mr. Groth's Website</title>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="test">
+        <img id="101" src="https://goo.gl/EZ7bPY">
+        <img id="102" src="https://goo.gl/EZ7bPY">
+        <img id="103" src="https://goo.gl/EZ7bPY">
+        <img id="104" src="https://goo.gl/EZ7bPY">
+        <img id="105" src="https://goo.gl/EZ7bPY">
+        <img id="106" src="https://goo.gl/EZ7bPY">
+        <br>
+        <input onchange="changed(1)" id="1" type="text">
+        <input onchange="changed(2)" id="2" type="text">
+        <input onchange="changed(3)" id="3" type="text">
+        <input onchange="changed(4)" id="4" type="text">
+        <input onchange="changed(5)" id="5" type="text">
+        <input onchange="changed(6)" id="6" type="text">
+        <p></p>
+    </div>
+    <button onclick="combine();copyToClipboard()">Activate</button>
+    <select id="chanceOrChest">
+      <option value="chance">Chance Cards</option>
+  <option value="chest">Community Chest Cards</option>
+    </select>
+    <p></p>
+    <textarea id="answer"></textarea>
+</body>
+
+</html>

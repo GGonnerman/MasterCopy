@@ -1,0 +1,18 @@
+table {
+    height: 300px;
+    width: 300px;
+    
+}
+
+td {
+    overflow: hidden;
+    width: 100px;
+    text-align: center;
+    font-size: 100px;
+}
+
+br {
+            display: block;
+            content: "";
+            margin-top: 0px;
+}

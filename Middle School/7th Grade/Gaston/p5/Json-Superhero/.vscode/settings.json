@@ -1,0 +1,11 @@
+{
+	"spotify.showInitializationError": true,
+	"spotify.showMuteVolumeButton": true,
+	"spotify.showPauseButton": true,
+	"spotify.showPlayButton": true,
+	"spotify.showToggleRepeatingButton": true,
+	"spotify.showToggleShufflingButton": true,
+	"spotify.showUnmuteVolumeButton": true,
+	"spotify.showVolumeDownButton": true,
+	"spotify.showVolumeUpButton": true
+}

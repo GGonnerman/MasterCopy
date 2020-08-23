@@ -1,0 +1,28 @@
+<head>
+	<title>Pokedex</title>
+	<link href="https://fonts.googleapis.com/css?family=Signika&display=swap" rel="stylesheet">
+	<script type="text/javascript" src="pokedex.json"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+	<div id="foreground">
+		<br>
+		<h1>Pokedex Browser</h1>
+		<div id="searching">
+			<label>Enter search critera:</label>
+			<select id="searchType" onchange="searchPokemon()">
+				<option value="name" selected>Name</option>
+				<option value="type">Type</option>
+			</select>
+			<input type="text" id="searchBar" onchange="searchPokemon()">
+			<button onclick="randomPokemon()">Random Pokemon</button>
+			<br><br><br>
+		</div>
+		<table id="table"></table>
+		<!-- https://github.com/fanzeyi/pokemon.json -->
+	</div>
+</body>
+
+</html>

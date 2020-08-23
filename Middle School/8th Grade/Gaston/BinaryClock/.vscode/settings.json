@@ -1,0 +1,9 @@
+{
+	"editor.fontFamily": "'Fira Code', 'Space Mono', monospace",
+	"editor.fontLigatures": true,
+	"stylelint.enable": true,
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"workbench.colorTheme": "Cobalt2"
+}

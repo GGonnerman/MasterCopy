@@ -1,0 +1,57 @@
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.imageio.ImageIO;
+public class Encryption {
+	public static void main(String[] Args)  throws IOException {
+		String string = "abcdefghijklmnopqrstuvwxyz ";
+		ArrayList<String> words = new ArrayList<>();
+		ArrayList<Color> colorCode = new ArrayList<>();
+		String space = " ";
+		int first = 0;
+		for(var i = 0; i < string.length(); i++) {
+			if(string.charAt(i) == space.charAt(0)) {
+				words.add(string.substring(first, i));
+				first = i + 1;	
+			}
+		}
+		Integer num;
+		String hex;
+		Long preHex;
+		for(var e = 0; e < words.size(); e++) {
+			for(var i = 0; i < words.get(e).length(); i++) {
+				num = (((int) words.get(e).charAt(i)) - 96) * 10;
+				if(words.get(e).length() > num) {
+					preHex = (long) (16777215/(words.get(e).length() * num));
+					hex = Long.toHexString(preHex);
+					colorCode.add(Color.decode("#" + hex));
+				}
+				else if(words.get(e).length() < num) {
+					preHex = (long) (16777215/num * (words.get(e).length()));
+					hex = Long.toHexString(preHex);
+					colorCode.add(Color.decode("#" + hex));
+				}
+				else {
+					preHex = (long) (16777215/ (num + (words.get(e).length())));
+					hex = Long.toHexString(preHex);
+					colorCode.add(Color.decode("#" + hex));
+				}
+			}
+			colorCode.add(Color.decode("#" + 16777215));
+		}
+		int scale = 25;
+		BufferedImage AfterImagE = new BufferedImage(colorCode.size()*scale, scale, BufferedImage.TYPE_INT_RGB);
+		for(int i = 0; i < colorCode.size()*scale; i++) {
+			for(int q = 0; q < scale; q++) { 
+				AfterImagE.setRGB(i, q, colorCode.get(i/scale).getRGB());
+			}
+		}
+		File outputfile = new File("Encryption.jpg");
+		ImageIO.write(AfterImagE, "jpg", outputfile);
+		Process process = new ProcessBuilder("mspaint","Encryption.jpg").start();
+		System.out.println("donezo");
+	}
+}

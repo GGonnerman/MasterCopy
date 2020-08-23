@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>P5 sketch practice</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="sketch.js"></script>
+	<script src="../p5.min.js"></script>
+	<script src="block.js"></script>
+	<script src="gameBoard.js"></script>
+	<script src="shape.js"></script>
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<div class="MainContent">
+		<div class="aboveCanvas">
+			<button class="buttons" onclick="resetGame()">Start Game</button>
+			<button class="buttons" onclick="(function(){localStorage.setItem('highestScore', 0)})()">Reset Highest Score</button>
+			<p id="running"></p>
+		</div>
+		<div class="canvasContent" id="sketch-holder"></div>
+		<div class="scoringContent">
+			<p id="current"></p>
+			<p id="highest"></p>
+		</div>
+	</div>
+</body>
+
+</html>
